@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { ReactNode } from 'react';
 
 interface LayoutProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
