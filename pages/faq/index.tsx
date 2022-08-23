@@ -1,13 +1,39 @@
-import type { NextPage } from "next";
-import Link from "../../src/components/Link";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
+import { httpClient } from "../../src/main";
 
-const Faq: NextPage = () => {
+type Faq = {
+  answer: string;
+  question: string;
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const FAQ_API_URL = 'https://gist.githubusercontent.com/omariosouto/0ceab54bdd8182cbd1a4549d32945c1a/raw/578ad1e8e5296fa048e3e7ff6b317f7497b31ad9/alura-cases-faq.json';
+
+  const faq: Faq = await httpClient.get(FAQ_API_URL).then((data) => {
+    return data;
+  });
+
+  return {
+    props: {
+      faq,
+    },
+  }
+}
+
+const Faq: NextPage = ({ faq }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div>
       <h1>Alura Cases - Página de Perguntas FAQ</h1>
-      <Link href="/">
-        <a>Ir para a Home</a>
-      </Link>
+      <ul>
+        {faq.map(({ answer, question }) => (
+          <li key={question}>
+            <article>
+              <h2>{question}</h2>
+              <p>{answer}</p>
+            </article>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 };
