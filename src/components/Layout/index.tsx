@@ -9,7 +9,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Head>
-        <title>Meu App Next.js</title>
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link rel='preconnect' href='https://fonts.gstatic.com' />
+        <title>My App</title>
       </Head>
       <main>{children}</main>
       <style jsx>{`
